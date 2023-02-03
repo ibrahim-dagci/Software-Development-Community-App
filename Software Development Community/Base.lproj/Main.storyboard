@@ -276,6 +276,7 @@
                     <navigationItem key="navigationItem" id="X50-7z-TEb"/>
                     <connections>
                         <outlet property="membersTableView" destination="oUH-xT-Iqk" id="ig2-fa-cd9"/>
+                        <outlet property="searchBar" destination="2AT-hY-vg2" id="EaT-og-5Vg"/>
                         <segue destination="3AQ-c4-BGt" kind="show" identifier="toMemberProfile" id="9bf-K0-68j"/>
                     </connections>
                 </viewController>

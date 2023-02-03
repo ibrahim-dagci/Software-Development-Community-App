@@ -11,6 +11,7 @@ import FirebaseAuth
 import SDWebImage
 
 class ViewControllerMembers: UIViewController, UIGestureRecognizerDelegate{
+    @IBOutlet weak var searchBar: UISearchBar!
     private var memberNameArray = [String]()
     private var memberSurnameArray = [String]()
     private var memberAreaArray = [String]()
@@ -19,8 +20,19 @@ class ViewControllerMembers: UIViewController, UIGestureRecognizerDelegate{
     private var memberPptUrlArray = [String]()
     private var memberGenderArray = [String]()
     private var memberStatusArray = [Bool]()
+    // searching
+    private var sMemberNameArray = [String]()
+    private var sMemberSurnameArray = [String]()
+    private var sMemberAreaArray = [String]()
+    private var sMemberEloArray = [String]()
+    private var sMemberUidArray = [String]()
+    private var sMemberPptUrlArray = [String]()
+    private var sMemberGenderArray = [String]()
+    private var sMemberStatusArray = [Bool]()
+    
     private let memberStatus = ["Üye","Yönetici","Başkan"]
     private var myElo:String?
+    private var currenSearching = false
     
 
     @IBOutlet weak var membersTableView: UITableView!
@@ -56,12 +68,6 @@ class ViewControllerMembers: UIViewController, UIGestureRecognizerDelegate{
         }
     }
     
-
-    
-
-}
-extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
-    
     func designInitialize(){
         //design initialize______________________________________________________________
         
@@ -78,102 +84,201 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toMemberProfile"{
+            let aimVC = segue.destination as! ViewControllerProfile
+            aimVC.meOrMember = 1
+            let memberUid = sender as! String
+            aimVC.me = GetPerson(userId: memberUid)
+            aimVC.dataMemberUid = memberUid
+            
+        }
+    }
+    
+    func alert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let oketButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(oketButton)
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // member count returned
-        return memberUidArray.count
+        if currenSearching == false{
+            return memberUidArray.count
+        }
+        else{
+            return sMemberUidArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       // cell data init
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberTableViewCell
-        cell.memberNameLabel.text = "\(memberNameArray[indexPath.row]) \(memberSurnameArray[indexPath.row])"
-        cell.memberAreaLabel.text = memberAreaArray[indexPath.row]
-        cell.userUidLabel.text = memberUidArray[indexPath.row]
-        
-        cell.memberElo.text = memberStatus[Int(memberEloArray[indexPath.row]) ?? 0]
-       
-        if memberGenderArray[indexPath.row] == "0"{
-            cell.memberImageView.sd_setImage(with: URL(string:memberPptUrlArray[indexPath.row]), placeholderImage:UIImage(named: "genderphmen"))
-        }
-        else{
-            cell.memberImageView.sd_setImage(with: URL(string:memberPptUrlArray[indexPath.row]), placeholderImage:UIImage(named: "genderphwomen"))
-        }
-         
-        if memberStatusArray[indexPath.row] == false{
-            cell.checkingImageView.image = UIImage(named: "waiting")
-        }
-        else{
-            cell.checkingImageView.image = UIImage(named: "check")
-        }
-        
-        
         cell.memberImageView.layer.cornerRadius = 40
         cell.memberImageView.layer.borderColor = UIColor.black.cgColor
         cell.memberImageView.layer.borderWidth = 2
         cell.containerView.layer.cornerRadius = 12
         cell.containerView.layer.borderColor = UIColor.gray.cgColor
         cell.containerView.layer.borderWidth = 1
- 
         
-        return cell
+        if currenSearching == false{
+            cell.memberNameLabel.text = "\(memberNameArray[indexPath.row]) \(memberSurnameArray[indexPath.row])"
+            cell.memberAreaLabel.text = memberAreaArray[indexPath.row]
+            cell.userUidLabel.text = memberUidArray[indexPath.row]
+            
+            cell.memberElo.text = memberStatus[Int(memberEloArray[indexPath.row]) ?? 0]
+           
+            if memberGenderArray[indexPath.row] == "0"{
+                cell.memberImageView.sd_setImage(with: URL(string:memberPptUrlArray[indexPath.row]), placeholderImage:UIImage(named: "genderphmen"))
+            }
+            else{
+                cell.memberImageView.sd_setImage(with: URL(string:memberPptUrlArray[indexPath.row]), placeholderImage:UIImage(named: "genderphwomen"))
+            }
+             
+            if memberStatusArray[indexPath.row] == false{
+                cell.checkingImageView.image = UIImage(named: "waiting")
+            }
+            else{
+                cell.checkingImageView.image = UIImage(named: "check")
+            }
+            return cell
+        }
+        else{
+            cell.memberNameLabel.text = "\(sMemberNameArray[indexPath.row]) \(sMemberSurnameArray[indexPath.row])"
+            cell.memberAreaLabel.text = sMemberAreaArray[indexPath.row]
+            cell.userUidLabel.text = sMemberUidArray[indexPath.row]
+            
+            cell.memberElo.text = memberStatus[Int(sMemberEloArray[indexPath.row]) ?? 0]
+           
+            if sMemberGenderArray[indexPath.row] == "0"{
+                cell.memberImageView.sd_setImage(with: URL(string:sMemberPptUrlArray[indexPath.row]), placeholderImage:UIImage(named: "genderphmen"))
+            }
+            else{
+                cell.memberImageView.sd_setImage(with: URL(string:sMemberPptUrlArray[indexPath.row]), placeholderImage:UIImage(named: "genderphwomen"))
+            }
+             
+            if sMemberStatusArray[indexPath.row] == false{
+                cell.checkingImageView.image = UIImage(named: "waiting")
+            }
+            else{
+                cell.checkingImageView.image = UIImage(named: "check")
+            }
+            return cell
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        self.performSegue(withIdentifier: "toMemberProfile", sender: memberUidArray[indexPath.row])
-        
+        if currenSearching == false{
+            self.performSegue(withIdentifier: "toMemberProfile", sender: memberUidArray[indexPath.row])
+        }
+        else{
+            self.performSegue(withIdentifier: "toMemberProfile", sender: sMemberUidArray[indexPath.row])
+        }
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
          
         if let elo = myElo{
-            if Int(elo)! >= 1 && Int(elo)! > Int( memberEloArray[indexPath.row])!{
-                return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions -> UIMenu? in
-                    
-                    let activePassiveAction = UIAction(title: "Aktif/Pasif", image: UIImage(systemName: "checkmark"), identifier: nil, discoverabilityTitle: nil) { action in
-                        if self.memberStatusArray[indexPath.row] == false{
-                            
-                            setDataToFirestore(collection: "Members", data:["status":true], userUid: self.memberUidArray[indexPath.row])
+            if currenSearching == false{
+                if Int(elo)! >= 1 && Int(elo)! > Int( memberEloArray[indexPath.row])!{
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions -> UIMenu? in
+                        
+                        let activePassiveAction = UIAction(title: "Aktif/Pasif", image: UIImage(systemName: "checkmark"), identifier: nil, discoverabilityTitle: nil) { action in
+                            if self.memberStatusArray[indexPath.row] == false{
+                                
+                                setDataToFirestore(collection: "Members", data:["status":true], userUid: self.memberUidArray[indexPath.row])
+                            }
+                            else if self.memberStatusArray[indexPath.row] == true{
+                                setDataToFirestore(collection: "Members", data:["status":false], userUid: self.memberUidArray[indexPath.row])
+                            }
                         }
-                        else if self.memberStatusArray[indexPath.row] == true{
-                            setDataToFirestore(collection: "Members", data:["status":false], userUid: self.memberUidArray[indexPath.row])
+                        let cancelAction = UIAction(title: "İptal", image: UIImage(systemName: "xmark"), identifier: nil, discoverabilityTitle: nil) { action in
+                           
                         }
-                    }
-                    let cancelAction = UIAction(title: "İptal", image: UIImage(systemName: "xmark"), identifier: nil, discoverabilityTitle: nil) { action in
-                       
-                    }
-                    let deleteAction = UIAction(title: "Sil", image: UIImage(systemName: "xmark.bin"), identifier: nil, discoverabilityTitle: nil) { action in
-                       
-                    }
-                    let subAction1 = UIAction(title: "Süper Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                        setDataToFirestore(collection: "Members", data:["level":"2"], userUid: self.memberUidArray[indexPath.row])
-                       
-                    }
-                    let subAction2 = UIAction(title: "Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                        setDataToFirestore(collection: "Members", data:["level":"1"], userUid: self.memberUidArray[indexPath.row])
-                       
-                    }
-                    let subAction3 = UIAction(title: "Üye", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                        setDataToFirestore(collection: "Members", data:["level":"0"], userUid: self.memberUidArray[indexPath.row])
-                       
-                    }
-                    var levelMenu = UIMenu()
-                    
-                    if Int(elo)! == 2{
-                        levelMenu = UIMenu(title: "Seviye",image: UIImage(systemName: "person.2.fill"),children: [subAction1,subAction2,subAction3,cancelAction])
-                    }
-                    else{
-                        levelMenu = UIMenu(title: "Seviye",image: UIImage(systemName: "person.2.fill"),children: [subAction2,subAction3,cancelAction])
-                    }
+                        let deleteAction = UIAction(title: "Sil", image: UIImage(systemName: "xmark.bin"), identifier: nil, discoverabilityTitle: nil) { action in
+                           
+                        }
+                        let subAction1 = UIAction(title: "Süper Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
+                            setDataToFirestore(collection: "Members", data:["level":"2"], userUid: self.memberUidArray[indexPath.row])
+                           
+                        }
+                        let subAction2 = UIAction(title: "Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
+                            setDataToFirestore(collection: "Members", data:["level":"1"], userUid: self.memberUidArray[indexPath.row])
+                           
+                        }
+                        let subAction3 = UIAction(title: "Üye", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
+                            setDataToFirestore(collection: "Members", data:["level":"0"], userUid: self.memberUidArray[indexPath.row])
+                           
+                        }
+                        var levelMenu = UIMenu()
+                        
+                        if Int(elo)! == 2{
+                            levelMenu = UIMenu(title: "Seviye",image: UIImage(systemName: "person.2.fill"),children: [subAction1,subAction2,subAction3,cancelAction])
+                        }
+                        else{
+                            levelMenu = UIMenu(title: "Seviye",image: UIImage(systemName: "person.2.fill"),children: [subAction2,subAction3,cancelAction])
+                        }
 
-                    
-                    let popUpMenu = UIMenu(title: "Yönet", image: nil, identifier: nil, options: [], children: [activePassiveAction,levelMenu,deleteAction,cancelAction])
-                    
-                    return popUpMenu
+                        
+                        let popUpMenu = UIMenu(title: "Yönet", image: nil, identifier: nil, options: [], children: [activePassiveAction,levelMenu,deleteAction,cancelAction])
+                        
+                        return popUpMenu
+                    }
+                }
+            }
+            else{
+                if Int(elo)! >= 1 && Int(elo)! > Int( sMemberEloArray[indexPath.row])!{
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions -> UIMenu? in
+                        
+                        let activePassiveAction = UIAction(title: "Aktif/Pasif", image: UIImage(systemName: "checkmark"), identifier: nil, discoverabilityTitle: nil) { action in
+                            if self.sMemberStatusArray[indexPath.row] == false{
+                                
+                                setDataToFirestore(collection: "Members", data:["status":true], userUid: self.sMemberUidArray[indexPath.row])
+                            }
+                            else if self.sMemberStatusArray[indexPath.row] == true{
+                                setDataToFirestore(collection: "Members", data:["status":false], userUid: self.sMemberUidArray[indexPath.row])
+                            }
+                        }
+                        let cancelAction = UIAction(title: "İptal", image: UIImage(systemName: "xmark"), identifier: nil, discoverabilityTitle: nil) { action in
+                           
+                        }
+                        let deleteAction = UIAction(title: "Sil", image: UIImage(systemName: "xmark.bin"), identifier: nil, discoverabilityTitle: nil) { action in
+                           
+                        }
+                        let subAction1 = UIAction(title: "Süper Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
+                            setDataToFirestore(collection: "Members", data:["level":"2"], userUid: self.sMemberUidArray[indexPath.row])
+                           
+                        }
+                        let subAction2 = UIAction(title: "Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
+                            setDataToFirestore(collection: "Members", data:["level":"1"], userUid: self.sMemberUidArray[indexPath.row])
+                           
+                        }
+                        let subAction3 = UIAction(title: "Üye", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
+                            setDataToFirestore(collection: "Members", data:["level":"0"], userUid: self.sMemberUidArray[indexPath.row])
+                           
+                        }
+                        var levelMenu = UIMenu()
+                        
+                        if Int(elo)! == 2{
+                            levelMenu = UIMenu(title: "Seviye",image: UIImage(systemName: "person.2.fill"),children: [subAction1,subAction2,subAction3,cancelAction])
+                        }
+                        else{
+                            levelMenu = UIMenu(title: "Seviye",image: UIImage(systemName: "person.2.fill"),children: [subAction2,subAction3,cancelAction])
+                        }
+
+                        
+                        let popUpMenu = UIMenu(title: "Yönet", image: nil, identifier: nil, options: [], children: [activePassiveAction,levelMenu,deleteAction,cancelAction])
+                        
+                        return popUpMenu
+                    }
                 }
             }
         }
@@ -255,33 +360,60 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
                                 self.myElo = elo
                             }
                         }
-                        
-
-                        
                     }
                     self.membersTableView.reloadData()
                     
+                    self.searchBar(self.searchBar, textDidChange: self.searchBar.text!)
                 }
             }
         }
-        
     }
-    
-    func alert(title:String,message:String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let oketButton = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(oketButton)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toMemberProfile"{
-            let aimVC = segue.destination as! ViewControllerProfile
-            aimVC.meOrMember = 1
-            let memberUid = sender as! String
-            aimVC.me = GetPerson(userId: memberUid)
-            aimVC.dataMemberUid = memberUid
+}
+
+extension ViewControllerMembers:UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == ""{
+            currenSearching = false
+        }
+        else{
+            currenSearching = true
+            self.sMemberNameArray.removeAll(keepingCapacity: false)
+            self.sMemberSurnameArray.removeAll(keepingCapacity: false)
+            self.sMemberEloArray.removeAll(keepingCapacity: false)
+            self.sMemberUidArray.removeAll(keepingCapacity: false)
+            self.sMemberAreaArray.removeAll(keepingCapacity: false)
+            self.sMemberPptUrlArray.removeAll(keepingCapacity: false)
+            self.sMemberGenderArray.removeAll(keepingCapacity: false)
+            self.sMemberStatusArray.removeAll(keepingCapacity: false)
+            sMemberNameArray = memberNameArray.filter({$0.lowercased().contains(searchText.lowercased())})
+            var searchingIndexArray:[Int] = [Int]()
+            var counter = 0
+            var counter2 = 0
+            if sMemberNameArray.isEmpty{
+                
+            }else{
+                for member in memberNameArray{
+                    if member == sMemberNameArray[counter2]{
+                        searchingIndexArray.append(counter)
+                        if sMemberNameArray.count == searchingIndexArray.count{
+                            break
+                        }
+                        counter2+=1
+                    }
+                    counter+=1
+                }
+                for index in searchingIndexArray{
+                    sMemberSurnameArray.append(memberSurnameArray[index])
+                    sMemberAreaArray.append(memberAreaArray[index])
+                    sMemberEloArray.append(memberEloArray[index])
+                    sMemberUidArray.append(memberUidArray[index])
+                    sMemberPptUrlArray.append(memberPptUrlArray[index])
+                    sMemberGenderArray.append(memberGenderArray[index])
+                    sMemberStatusArray.append(memberStatusArray[index])
+                }
+            }
             
         }
+        self.membersTableView.reloadData()
     }
 }
