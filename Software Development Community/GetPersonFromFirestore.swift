@@ -26,7 +26,7 @@ class GetPerson {
     var gender:String?
     var pptUrl:String?
     var level:String?
-    var status:String?
+    var status:Bool?
     var account:String?
     
     
@@ -35,7 +35,7 @@ class GetPerson {
         getDataFromFirestore()
     }
     
-    init(name:String,surName:String,userName:String,bio:String,pptUrl:String,account:String,department:String,classs:String,area:String,gender:String){
+    init(name:String,surName:String,userName:String,bio:String,pptUrl:String,account:String,department:String,classs:String,area:String,gender:String,status:Bool,level:String){
         self.name = name
         self.surName = surName
         self.userName = userName
@@ -46,6 +46,8 @@ class GetPerson {
         self.area = area
         self.classs = classs
         self.gender = gender
+        self.status = status
+        self.level = level
         
     }
     
@@ -114,7 +116,14 @@ class GetPerson {
                         self.account = account
                     }
                     
-                    
+                    if let status = snapshot?.get("status") as? Bool
+                    {
+                        self.status = status
+                    }
+                    if let level = snapshot?.get("level") as? String
+                    {
+                        self.level = level
+                    }
                 }
             }
         }

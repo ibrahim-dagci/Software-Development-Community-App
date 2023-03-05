@@ -81,7 +81,6 @@ extension ViewControllerProfile {
         //design initialize_____________________________________________________________
         let menu = UIMenu(title: "",  children: [
             UIAction(title: "Profili Düzenle", image: UIImage(systemName: "pencil"), handler: { (_) in
-                print("profili düzenle clicked")
                 self.performSegue(withIdentifier: "profileToEdit", sender: 1)
  
             }),
@@ -202,18 +201,11 @@ extension ViewControllerProfile {
             if let data = sender as? Int{
                 let aimVC = segue.destination as! ViewControllerUpdateInformation
                 aimVC.updateOrRegister = data
-                aimVC.me = GetPerson(name: me.name!, surName: me.surName!, userName: me.userName!, bio: me.bio!, pptUrl: me.pptUrl!, account: me.account!,department: me.department!,classs: me.classs!,area: me.area!,gender: me.gender!)
+                aimVC.me = GetPerson(name: me.name!, surName: me.surName!, userName: me.userName!, bio: me.bio!, pptUrl: me.pptUrl!, account: me.account!,department: me.department!,classs: me.classs!,area: me.area!,gender: me.gender!,status: me.status!,level:me.level!)
                 
             }
             
         }
-        
-        
     }
-    
-    
-    
-    
-    
 }
 

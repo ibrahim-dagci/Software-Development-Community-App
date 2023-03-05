@@ -96,62 +96,6 @@ class ViewControllerUpdateInformation: UIViewController {
         
     }
     
-
-}
-extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    // picker view funcs-------------------------
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        if pickerView == pickerViewDepartment{
-            return departments.count
-        }
-         else if pickerView == pickerViewClasss{
-           return classs.count
-        }
-        else if pickerView == pickerViewArea{
-           return areas.count
-        }
-        else{
-            return 0
-        }
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == pickerViewDepartment{
-            return departments[row]
-        }
-         else if pickerView == pickerViewClasss{
-           return classs[row]
-        }
-        else if pickerView == pickerViewArea{
-           return areas[row]
-        }
-        else{
-            return ""
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == pickerViewDepartment{
-            departmentLabel.text = departments[row]
-        }
-         else if pickerView == pickerViewClasss{
-             classLabel.text = classs[row]
-        }
-        else if pickerView == pickerViewArea{
-            areaLabel.text = areas[row]
-        }
-        else{
-            
-        }
-    }
-    //-----------------------------------
-    
-    
-    
     func designInitialize(){
         
         //design initialize______________________________________________________________
@@ -185,10 +129,66 @@ extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewData
             classLabel.text = me!.classs!
             departmentLabel.text = me!.department!
         }
-        
-        
-        //_______________________________________________________________________________
     }
+    
+
+}
+extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    // picker view funcs-------------------------
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        if pickerView == pickerViewDepartment{
+            return departments.count
+        }
+        else if pickerView == pickerViewClasss{
+            return classs.count
+        }
+        else if pickerView == pickerViewArea{
+            return areas.count
+        }
+        else{
+            return 0
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == pickerViewDepartment{
+            return departments[row]
+        }
+        else if pickerView == pickerViewClasss{
+            return classs[row]
+        }
+        else if pickerView == pickerViewArea{
+            return areas[row]
+        }
+        else{
+            return ""
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == pickerViewDepartment{
+            departmentLabel.text = departments[row]
+        }
+        else if pickerView == pickerViewClasss{
+            classLabel.text = classs[row]
+        }
+        else if pickerView == pickerViewArea{
+            areaLabel.text = areas[row]
+        }
+        else{
+            
+        }
+    }
+    //-----------------------------------
+}
+    
+extension ViewControllerUpdateInformation {
+    
+    
     
     @objc func touchTheFreeArea(){
         view.endEditing(true)
@@ -214,6 +214,9 @@ extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewData
         self.dismiss(animated: true, completion: nil)
     }
     //------------------------------------------
+}
+    
+extension ViewControllerUpdateInformation {
     
     func SetImageAndGetUrl(){
         
@@ -251,15 +254,11 @@ extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewData
                                         }
                                     }
                                 }
-                                
-                                
                             }
                         }
                     }
                 }
-                
             }
-            
         }
         else if updateOrRegister == 0{
             let pptUrl = ["profilePhotoUrl":"null"] as [String:Any]
@@ -341,7 +340,7 @@ extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewData
             
             let language = Locale(identifier: "tr")
 
-            let firestoreMember = ["account":accountLabel.text!,"area":areaLabel.text!,"biography":biographyLabel.text!,"clas":classLabel.text!,"dateOfRegistration":FieldValue.serverTimestamp(),"department":departmentLabel.text!,"gender":gender,"level":"0","name":name.text!.capitalized(with: language),"status": false,"surName":surname.text!.capitalized(with: language),"uid":uid,"userName":nickName.text!] as [String : Any]
+            let firestoreMember = ["account":accountLabel.text!,"area":areaLabel.text!,"biography":biographyLabel.text!,"clas":classLabel.text!,"dateOfRegistration":FieldValue.serverTimestamp(),"department":departmentLabel.text!,"gender":gender,"level":me!.level,"name":name.text!.capitalized(with: language),"status": me!.status,"surName":surname.text!.capitalized(with: language),"uid":uid,"userName":nickName.text!] as [String : Any]
             
              fireStoreDatabase.collection("Members").whereField("userName", isEqualTo: nickName.text!).getDocuments { querySnapshot, error in
                 if error != nil{
@@ -363,13 +362,7 @@ extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewData
                                 }
                                 else
                                 {
-                                    
-                                        
                                     self.SetImageAndGetUrl()
-                                    
-                                    
-                                    
-                                    
                                 }
                             })
                         }
@@ -425,19 +418,12 @@ extension ViewControllerUpdateInformation: UIPickerViewDelegate,UIPickerViewData
             
             if updateOrRegister == 0{
                 let tabBar = segue.destination as! UITabBarController
-                
-                
             }
             if updateOrRegister == 1{
                 
                 let tabBar = segue.destination as! UITabBarController
-                
-                    tabBar.selectedIndex = 4
-                
-                
+                tabBar.selectedIndex = 4
             }
         }
-        
-        
     }
 }

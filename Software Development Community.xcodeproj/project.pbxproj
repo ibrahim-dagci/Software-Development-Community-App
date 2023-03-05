@@ -20,6 +20,8 @@
 		DB22FA3128DDEA0E00A1AE47 /* Software_Development_CommunityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB22FA3028DDEA0E00A1AE47 /* Software_Development_CommunityUITests.swift */; };
 		DB22FA3328DDEA0E00A1AE47 /* Software_Development_CommunityUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB22FA3228DDEA0E00A1AE47 /* Software_Development_CommunityUITestsLaunchTests.swift */; };
 		DB40814E28DEF4F500FAECAD /* ViewControllerPasswordForgot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB40814D28DEF4F500FAECAD /* ViewControllerPasswordForgot.swift */; };
+		DB52777D29A7C88200FB8B14 /* ViewControllerLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52777C29A7C88200FB8B14 /* ViewControllerLock.swift */; };
+		DB52777F29A7E47600FB8B14 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52777E29A7E47600FB8B14 /* GalleryCollectionViewCell.swift */; };
 		DB5C69C02910818700F3D34B /* TabBarControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5C69BF2910818700F3D34B /* TabBarControler.swift */; };
 		DB7B2B4428E0568600BB4A62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB7B2B4328E0568600BB4A62 /* GoogleService-Info.plist */; };
 		DB7B2B4728E057C600BB4A62 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DB7B2B4628E057C600BB4A62 /* FirebaseAuth */; };
@@ -75,6 +77,8 @@
 		DB22FA3028DDEA0E00A1AE47 /* Software_Development_CommunityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Software_Development_CommunityUITests.swift; sourceTree = "<group>"; };
 		DB22FA3228DDEA0E00A1AE47 /* Software_Development_CommunityUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Software_Development_CommunityUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DB40814D28DEF4F500FAECAD /* ViewControllerPasswordForgot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerPasswordForgot.swift; sourceTree = "<group>"; };
+		DB52777C29A7C88200FB8B14 /* ViewControllerLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLock.swift; sourceTree = "<group>"; };
+		DB52777E29A7E47600FB8B14 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB5C69BF2910818700F3D34B /* TabBarControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControler.swift; sourceTree = "<group>"; };
 		DB7B2B4328E0568600BB4A62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB7B2B4E28E0A65000BB4A62 /* AlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				DBC632CF28E2350500875AD4 /* LoadingControl.swift */,
 				DB7B2B4E28E0A65000BB4A62 /* AlertView.xib */,
 				DB7B2B5028E0AD4600BB4A62 /* AlertViewControl.swift */,
+				DB52777C29A7C88200FB8B14 /* ViewControllerLock.swift */,
+				DB52777E29A7E47600FB8B14 /* GalleryCollectionViewCell.swift */,
 			);
 			path = "Software Development Community";
 			sourceTree = "<group>";
@@ -348,6 +354,8 @@
 				DB079F5029846799002A223C /* setDataToFirestore.swift in Sources */,
 				DB84D9C028DE56DD00E288F4 /* ViewControllerRegister.swift in Sources */,
 				DB40814E28DEF4F500FAECAD /* ViewControllerPasswordForgot.swift in Sources */,
+				DB52777F29A7E47600FB8B14 /* GalleryCollectionViewCell.swift in Sources */,
+				DB52777D29A7C88200FB8B14 /* ViewControllerLock.swift in Sources */,
 				DB7B2B5128E0AD4600BB4A62 /* AlertViewControl.swift in Sources */,
 				DB1EA4012936518400F3D2C1 /* MemberTableViewCell.swift in Sources */,
 			);

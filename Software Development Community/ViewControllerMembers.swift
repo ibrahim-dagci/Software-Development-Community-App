@@ -362,7 +362,6 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
                         }
                     }
                     self.membersTableView.reloadData()
-                    
                     self.searchBar(self.searchBar, textDidChange: self.searchBar.text!)
                 }
             }
@@ -385,7 +384,11 @@ extension ViewControllerMembers:UISearchBarDelegate{
             self.sMemberPptUrlArray.removeAll(keepingCapacity: false)
             self.sMemberGenderArray.removeAll(keepingCapacity: false)
             self.sMemberStatusArray.removeAll(keepingCapacity: false)
-            sMemberNameArray = memberNameArray.filter({$0.lowercased().contains(searchText.lowercased())})
+            sMemberNameArray = memberNameArray.filter({
+                // burda fazladan işlemi yaptığımı düşünüyorum fakat henüz bunu çözmek için vakit ayıramadım
+                //(şimdilik çalışıyor)
+                $0.lowercased().contains(searchText.lowercased())
+            })
             var searchingIndexArray:[Int] = [Int]()
             var counter = 0
             var counter2 = 0
