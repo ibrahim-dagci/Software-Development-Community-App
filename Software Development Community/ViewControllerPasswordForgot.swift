@@ -19,7 +19,7 @@ class ViewControllerPasswordForgot: UIViewController {
     }
     
     @IBAction func sendNewPasswordClick(_ sender: Any) {
-        LoadingView.instance.showLoading()
+        LoadingView.instance.showLoading(currentVC: self)
         if eMailLabelForgetPassword.text != ""{
             Auth.auth().sendPasswordReset(withEmail: eMailLabelForgetPassword.text!) { error in
                 if error != nil {

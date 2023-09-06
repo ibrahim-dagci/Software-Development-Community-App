@@ -9,6 +9,9 @@ import UIKit
 import Firebase
 
 class ViewControllerLock: UIViewController {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var lockImage: UIImageView!
     var currentUser = GetPerson(userId: Auth.auth().currentUser!.uid )
 
     override func viewDidLoad() {
@@ -27,6 +30,9 @@ class ViewControllerLock: UIViewController {
         if let currentUserStatus = currentUser.status  {
             print(currentUserStatus)
             if currentUserStatus == true{
+                lockImage.image = UIImage(named: "check")
+                titleLabel.text = " "
+                infoLabel.text = " "
                 performSegue(withIdentifier: "lockToGallery", sender: nil)
             }
         }

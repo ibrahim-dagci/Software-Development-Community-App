@@ -28,7 +28,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func logInButtonClick(_ sender: Any) {
-        LoadingView.instance.showLoading()
+        LoadingView.instance.showLoading(currentVC: self)
+        
         if eMailLabel.text != "" && passwordLabel.text != ""{
             Auth.auth().signIn(withEmail: eMailLabel.text!, password: passwordLabel.text!) { authdata, error in
                 if error != nil {

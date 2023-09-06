@@ -194,10 +194,10 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
                         let activePassiveAction = UIAction(title: "Aktif/Pasif", image: UIImage(systemName: "checkmark"), identifier: nil, discoverabilityTitle: nil) { action in
                             if self.memberStatusArray[indexPath.row] == false{
                                 
-                                setDataToFirestore(collection: "Members", data:["status":true], userUid: self.memberUidArray[indexPath.row])
+                                setDataToFirestore(collection: "Members", data:["status":true], document: self.memberUidArray[indexPath.row]).setData()
                             }
                             else if self.memberStatusArray[indexPath.row] == true{
-                                setDataToFirestore(collection: "Members", data:["status":false], userUid: self.memberUidArray[indexPath.row])
+                                setDataToFirestore(collection: "Members", data:["status":false], document: self.memberUidArray[indexPath.row]).setData()
                             }
                         }
                         let cancelAction = UIAction(title: "İptal", image: UIImage(systemName: "xmark"), identifier: nil, discoverabilityTitle: nil) { action in
@@ -207,15 +207,15 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
                            
                         }
                         let subAction1 = UIAction(title: "Süper Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                            setDataToFirestore(collection: "Members", data:["level":"2"], userUid: self.memberUidArray[indexPath.row])
+                            setDataToFirestore(collection: "Members", data:["level":"2"], document: self.memberUidArray[indexPath.row]).setData()
                            
                         }
                         let subAction2 = UIAction(title: "Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                            setDataToFirestore(collection: "Members", data:["level":"1"], userUid: self.memberUidArray[indexPath.row])
+                            setDataToFirestore(collection: "Members", data:["level":"1"], document: self.memberUidArray[indexPath.row]).setData()
                            
                         }
                         let subAction3 = UIAction(title: "Üye", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                            setDataToFirestore(collection: "Members", data:["level":"0"], userUid: self.memberUidArray[indexPath.row])
+                            setDataToFirestore(collection: "Members", data:["level":"0"], document: self.memberUidArray[indexPath.row]).setData()
                            
                         }
                         var levelMenu = UIMenu()
@@ -241,10 +241,10 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
                         let activePassiveAction = UIAction(title: "Aktif/Pasif", image: UIImage(systemName: "checkmark"), identifier: nil, discoverabilityTitle: nil) { action in
                             if self.sMemberStatusArray[indexPath.row] == false{
                                 
-                                setDataToFirestore(collection: "Members", data:["status":true], userUid: self.sMemberUidArray[indexPath.row])
+                                setDataToFirestore(collection: "Members", data:["status":true], document: self.sMemberUidArray[indexPath.row]).setData()
                             }
                             else if self.sMemberStatusArray[indexPath.row] == true{
-                                setDataToFirestore(collection: "Members", data:["status":false], userUid: self.sMemberUidArray[indexPath.row])
+                                setDataToFirestore(collection: "Members", data:["status":false], document: self.sMemberUidArray[indexPath.row]).setData()
                             }
                         }
                         let cancelAction = UIAction(title: "İptal", image: UIImage(systemName: "xmark"), identifier: nil, discoverabilityTitle: nil) { action in
@@ -254,15 +254,15 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
                            
                         }
                         let subAction1 = UIAction(title: "Süper Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                            setDataToFirestore(collection: "Members", data:["level":"2"], userUid: self.sMemberUidArray[indexPath.row])
+                            setDataToFirestore(collection: "Members", data:["level":"2"], document: self.sMemberUidArray[indexPath.row]).setData()
                            
                         }
                         let subAction2 = UIAction(title: "Yönetici", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                            setDataToFirestore(collection: "Members", data:["level":"1"], userUid: self.sMemberUidArray[indexPath.row])
+                            setDataToFirestore(collection: "Members", data:["level":"1"], document: self.sMemberUidArray[indexPath.row]).setData()
                            
                         }
                         let subAction3 = UIAction(title: "Üye", image: UIImage(systemName: "cancel"), identifier: nil, discoverabilityTitle: nil) { action in
-                            setDataToFirestore(collection: "Members", data:["level":"0"], userUid: self.sMemberUidArray[indexPath.row])
+                            setDataToFirestore(collection: "Members", data:["level":"0"], document: self.sMemberUidArray[indexPath.row]).setData()
                            
                         }
                         var levelMenu = UIMenu()

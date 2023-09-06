@@ -14,8 +14,6 @@ import UIKit
 class GetPerson {
     
     var userId:String?
-        
-    
     var name:String?
     var surName:String?
     var userName:String?
@@ -48,7 +46,6 @@ class GetPerson {
         self.gender = gender
         self.status = status
         self.level = level
-        
     }
     
     init() {
@@ -127,9 +124,5 @@ class GetPerson {
                 }
             }
         }
-        
     }
-    
-    
-    
 }

@@ -10,6 +10,7 @@ import UIKit
 class LoadingView : UIView {
     
     static let instance = LoadingView()
+    var currentVC:UIViewController?
     
    
     @IBOutlet var parentView: UIView!
@@ -40,9 +41,15 @@ class LoadingView : UIView {
         parentView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         setUpCircle()
     }
-    func showLoading(){
+    func showLoading(currentVC:UIViewController){
+        self.currentVC = currentVC
         UIApplication.shared.keyWindow?.addSubview(self.parentView)
         loading = true
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = currentVC.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        currentVC.view.addSubview(blurEffectView)
         loadingView()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(40)) {
             self.parentView.removeFromSuperview()
@@ -96,5 +103,9 @@ class LoadingView : UIView {
     
     func removeView(){
         parentView.removeFromSuperview()
+        let blurredEffectViews = currentVC!.view.subviews.filter{$0 is UIVisualEffectView}
+        blurredEffectViews.forEach{ blurView in
+            blurView.removeFromSuperview()
+        }
     }
 }

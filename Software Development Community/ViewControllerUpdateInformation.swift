@@ -111,6 +111,7 @@ class ViewControllerUpdateInformation: UIViewController {
         profileImage.layer.cornerRadius = 49
         profileImage.layer.borderColor = UIColor.gray.cgColor
         profileImage.layer.borderWidth = 3
+        profileImage.contentMode = .scaleAspectFill
         if updateOrRegister == 1{
             // optional binding yapılacak...
             if me!.gender == "0"{
@@ -282,7 +283,7 @@ extension ViewControllerUpdateInformation {
     }
     
     func register(){
-        LoadingView.instance.showLoading()
+        LoadingView.instance.showLoading(currentVC: self)
         if nickName.text != "" && name.text != "" && surname.text != "" && departmentLabel.text != "" && areaLabel.text != "" && classLabel.text != ""{
             SetImageAndGetUrl()
             let language = Locale(identifier: "tr")
@@ -335,7 +336,7 @@ extension ViewControllerUpdateInformation {
     }
     
     func update(){
-        LoadingView.instance.showLoading()
+        LoadingView.instance.showLoading(currentVC: self)
         if nickName.text != "" && name.text != "" && surname.text != "" && departmentLabel.text != "" && areaLabel.text != "" && classLabel.text != ""{
             
             let language = Locale(identifier: "tr")
@@ -417,10 +418,8 @@ extension ViewControllerUpdateInformation {
         if segue.identifier == "InformationToFeed"{
             
             if updateOrRegister == 0{
-                let tabBar = segue.destination as! UITabBarController
             }
             if updateOrRegister == 1{
-                
                 let tabBar = segue.destination as! UITabBarController
                 tabBar.selectedIndex = 4
             }

@@ -128,6 +128,7 @@ extension ViewControllerProfile {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         profileImage.layer.cornerRadius = 60
         profileImage.layer.borderColor = UIColor.gray.cgColor
+        profileImage.contentMode = .scaleAspectFill
         profileImage.layer.borderWidth = 3
         biographyText.layer.cornerRadius = 12
         biographyText.layer.borderColor = UIColor.gray.cgColor

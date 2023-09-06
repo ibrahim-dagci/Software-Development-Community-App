@@ -20,7 +20,7 @@ class ViewControllerRegister: UIViewController {
     
     @IBAction func signUpClick(_ sender: Any) {
         //loading animation will initializing next line than remove every else block
-        LoadingView.instance.showLoading()
+        LoadingView.instance.showLoading(currentVC: self)
         if eMailLabelReg.text != "" && passwordLabelReg.text != "" && passwordLabelAgain.text != ""{
             if passwordLabelAgain.text == passwordLabelReg.text && passwordLabelReg.text!.count >= 6 {
                 Auth.auth().createUser(withEmail: eMailLabelReg.text!, password: passwordLabelReg.text!) { authdata, error in
