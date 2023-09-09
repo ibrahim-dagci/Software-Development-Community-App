@@ -23,6 +23,7 @@
 		DB40814E28DEF4F500FAECAD /* ViewControllerPasswordForgot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB40814D28DEF4F500FAECAD /* ViewControllerPasswordForgot.swift */; };
 		DB52777D29A7C88200FB8B14 /* ViewControllerLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52777C29A7C88200FB8B14 /* ViewControllerLock.swift */; };
 		DB52777F29A7E47600FB8B14 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52777E29A7E47600FB8B14 /* GalleryCollectionViewCell.swift */; };
+		DB566C3A2AA8EC4A005E46CE /* UITableViewPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB566C392AA8EC4A005E46CE /* UITableViewPostCell.swift */; };
 		DB5C69C02910818700F3D34B /* TabBarControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5C69BF2910818700F3D34B /* TabBarControler.swift */; };
 		DB75B4A429EB562F0002825B /* ViewControllerGlleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75B4A329EB562F0002825B /* ViewControllerGlleryImage.swift */; };
 		DB7ADD4129C3620200CC1B7A /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7ADD4029C3620200CC1B7A /* DatabaseManager.swift */; };
@@ -83,6 +84,7 @@
 		DB40814D28DEF4F500FAECAD /* ViewControllerPasswordForgot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerPasswordForgot.swift; sourceTree = "<group>"; };
 		DB52777C29A7C88200FB8B14 /* ViewControllerLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLock.swift; sourceTree = "<group>"; };
 		DB52777E29A7E47600FB8B14 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB566C392AA8EC4A005E46CE /* UITableViewPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewPostCell.swift; sourceTree = "<group>"; };
 		DB5C69BF2910818700F3D34B /* TabBarControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControler.swift; sourceTree = "<group>"; };
 		DB75B4A329EB562F0002825B /* ViewControllerGlleryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerGlleryImage.swift; sourceTree = "<group>"; };
 		DB7ADD4029C3620200CC1B7A /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				DB2D064D29BCB9E1003E193C /* ViewControllerPublish.swift */,
 				DB7ADD4029C3620200CC1B7A /* DatabaseManager.swift */,
 				DB75B4A329EB562F0002825B /* ViewControllerGlleryImage.swift */,
+				DB566C392AA8EC4A005E46CE /* UITableViewPostCell.swift */,
 			);
 			path = "Software Development Community";
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				DBD7342B28F3390B00663123 /* ViewControllerMembers.swift in Sources */,
 				DB5C69C02910818700F3D34B /* TabBarControler.swift in Sources */,
 				DBD7342F28F339DB00663123 /* ViewControllerChat.swift in Sources */,
+				DB566C3A2AA8EC4A005E46CE /* UITableViewPostCell.swift in Sources */,
 				DB22FA1028DDEA0E00A1AE47 /* AppDelegate.swift in Sources */,
 				DBD7343128F33A3A00663123 /* ViewControllerProfile.swift in Sources */,
 				DB22FA1228DDEA0E00A1AE47 /* SceneDelegate.swift in Sources */,

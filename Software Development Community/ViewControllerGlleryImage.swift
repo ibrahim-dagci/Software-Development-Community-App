@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewControllerGlleryImage: UIViewController, UIScrollViewDelegate {
+class ViewControllerGalleryImage: UIViewController, UIScrollViewDelegate {
 
     var selectedIndex: Int = 0
     var imageArray = [UIImageView]()

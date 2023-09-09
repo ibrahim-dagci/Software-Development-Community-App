@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewControllerPublish: UIViewController {
+    
+    var currentUserUid:String?
     var controlPublishType:Bool?
     @IBOutlet weak var datePickerField: UITextField!
     private var pickControl = false
@@ -51,6 +54,15 @@ class ViewControllerPublish: UIViewController {
                     alert(title: "Uyarı", message: "Lütfen resim ve tarih seçtiğinizden emin olun. Açıklama yazmak zorunlu değildir.")
                 }
             }else{
+                if  pickControl == true{
+                    let data = ["comment":commentText.text,"lineId":"0","memberUid":currentUserUid!,"postId":UUID().uuidString] as [String:Any]
+                    setDataToFirestore(collection: "Post", data: data, storageChild: "post").setPublish(dataImage: postImage.image!, urlName: "postPhotoUrl")
+                    navigationController?.popViewController(animated: true)
+                    
+                }
+                else{
+                    alert(title: "Uyarı", message: "Lütfen resim seçtiğinizden emin olun. Açıklama yazmak zorunlu değildir.")
+                }
                
             }
         }
@@ -92,6 +104,7 @@ class ViewControllerPublish: UIViewController {
                 self.navigationItem.title = "DUYURU YAYINLA"
                 publishButton.setTitle("DUYURU YAYINLA", for: .normal)
                 postImage.image = UIImage(systemName: "info")
+                datePickerField.isHidden = true
             }
         }
     

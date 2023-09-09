@@ -156,7 +156,7 @@ extension ViewControllerGallery:UICollectionViewDelegate,UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ViewControllerGlleryImage()
+        let vc = ViewControllerGalleryImage()
         vc.selectedIndex = indexPath.row
         vc.imageArray = galleryPhotos
         vc.imageDateArray  = dates
