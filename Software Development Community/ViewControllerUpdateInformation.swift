@@ -114,21 +114,30 @@ class ViewControllerUpdateInformation: UIViewController {
         profileImage.contentMode = .scaleAspectFill
         if updateOrRegister == 1{
             // optional binding yapılacak...
-            if me!.gender == "0"{
-                profileImage.sd_setImage(with: URL(string: me!.pptUrl!), placeholderImage: UIImage(named: "genderphmen"))
+            if let name = me?.name, let surname = me?.surName, let userName = me?.userName,
+               let bio = me?.bio, let pptUrl = me?.pptUrl, let account = me?.account, let department = me?.department, let classs = me?.classs, let area = me?.area, let gender = me?.gender{
+                if gender == "0"{
+                    profileImage.sd_setImage(with: URL(string: pptUrl), placeholderImage: UIImage(named: "genderphmen"))
+                }
+                else if gender == "1"{
+                    profileImage.sd_setImage(with: URL(string: pptUrl), placeholderImage: UIImage(named: "genderphwomen"))
+                }
+                
+                self.name.text = name
+                self.surname.text = surname
+                self.nickName.text = userName
+                self.biographyLabel.text = bio
+                self.accountLabel.text = account
+                self.areaLabel.text = area
+                self.classLabel.text = classs
+                self.departmentLabel.text = department
             }
-            else if me!.gender == "1"{
-                profileImage.sd_setImage(with: URL(string: me!.pptUrl!), placeholderImage: UIImage(named: "genderphwomen"))
+            else{
+                navigationController?.popViewController(animated: true)
+                alert(title: "Hata", message: "lütfen internet bağlantınızı kontrol edin veriler tam olarak yüklenemedi!!")
+                
             }
             
-            name.text = me!.name!
-            surname.text = me!.surName!
-            nickName.text = me!.userName!
-            biographyLabel.text = me!.bio!
-            accountLabel.text = me!.account!
-            areaLabel.text = me!.area!
-            classLabel.text = me!.classs!
-            departmentLabel.text = me!.department!
         }
     }
     

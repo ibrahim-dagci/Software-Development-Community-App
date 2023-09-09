@@ -40,7 +40,10 @@ class ViewControllerProfile: UIViewController {
         
         if meLoaded > 0 && meOrMember == 0 {
             self.me = GetPerson()
-            self.me = GetPerson(userId: Auth.auth().currentUser!.uid)
+            if let cuuid = Auth.auth().currentUser?.uid {
+                self.me = GetPerson(userId: cuuid)
+            }
+            
         }
         else if meLoaded > 0 && meOrMember == 1{
             if let dataMember = dataMemberUid{
@@ -59,7 +62,8 @@ class ViewControllerProfile: UIViewController {
     }
     @objc func changeProfileData(){
         time+=1
-        if me.userName != nil{
+        if let name = me.userName, let surname = me.surName, let userName = me.userName,
+           let bio = me.bio, let pptUrl = me.pptUrl, let account = me.account, let department = me.department, let classs = me.classs, let area = me.area, let gender = me.gender, let status = me.status, let level = me.level{
             self.loadProfileData()
             timer.invalidate()
         }
@@ -202,7 +206,11 @@ extension ViewControllerProfile {
             if let data = sender as? Int{
                 let aimVC = segue.destination as! ViewControllerUpdateInformation
                 aimVC.updateOrRegister = data
-                aimVC.me = GetPerson(name: me.name!, surName: me.surName!, userName: me.userName!, bio: me.bio!, pptUrl: me.pptUrl!, account: me.account!,department: me.department!,classs: me.classs!,area: me.area!,gender: me.gender!,status: me.status!,level:me.level!)
+                if let name = me.name, let surname = me.surName, let userName = me.userName,
+                   let bio = me.bio, let pptUrl = me.pptUrl, let account = me.account, let department = me.department, let classs = me.classs, let area = me.area, let gender = me.gender, let status = me.status, let level = me.level{
+                    aimVC.me = GetPerson(name: name, surName: surname, userName: userName, bio: bio, pptUrl: pptUrl, account: account,department: department,classs: classs,area: area,gender: gender,status: status,level: level)
+                }
+                
                 
             }
             
