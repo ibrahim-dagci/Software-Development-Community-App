@@ -30,13 +30,13 @@ class ViewControllerFeed: UIViewController {
         postTableView.dataSource = self
         designInitialize()
         getFeedDataFromFirestore()
-        
-        
         if #available(iOS 16.0, *) {
             goPublishButton.isHidden = true
+            postTableView.allowsSelection = false
         } else {
             // Fallback on earlier versions
             isSuperUserControl =  false
+            postTableView.allowsSelection = false
         }
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -61,6 +61,7 @@ class ViewControllerFeed: UIViewController {
                 AlertView.instance.showAlert(message: " Gerekli evrakları topluluğumuza teslim ettikten sonra profiliniz aktifleşecektir.", alertImageName: "checking",header: "HOŞGELDİNİZ !!!")
                 checkhing = 1
             }
+            postTableView.allowsSelection = true
             timer.invalidate()
         }
         if time > 20 {
@@ -80,7 +81,14 @@ class ViewControllerFeed: UIViewController {
         if segue.identifier == "feedToPublish"{
             let aimVC = segue.destination as! ViewControllerPublish
             aimVC.controlPublishType = false
-            aimVC.currentUserUid = currentUser.userId
+            aimVC.currentUserUid = self.currentUser.userId
+        }
+        if segue.identifier == "postToComments"{
+            if let post = sender as? [String : Any]{
+                let aimVC = segue.destination as! ViewControllerPostComments
+                aimVC.post = post
+                aimVC.currentUser = self.currentUser
+            }
         }
     }
     
@@ -137,7 +145,6 @@ extension ViewControllerFeed:UITableViewDelegate,UITableViewDataSource {
                         if let date = document.get("firebaseDate") as? Timestamp
                         {
                             self.dates.append(date)
-                            print(date)
                         }
                         if let url = document.get("postPhotoUrl") as? String
                         {
@@ -181,8 +188,13 @@ extension ViewControllerFeed:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "postToComments", sender: postIds[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+        let post = ["comment":comments[indexPath.row],"date":dates[indexPath.row],"postPhotoUrl":postPhotoUrls[indexPath.row],"postId":postIds[indexPath.row],"postOwnerId":postOwners[indexPath.row]] as [String : Any]
+        performSegue(withIdentifier: "postToComments", sender: post)
     }
+    
+    
+    
     
     func dateDiff(frontDate:Date,now:Date) -> String{
         let calendar = Calendar.current

@@ -35,6 +35,9 @@
 		DB7B2B4F28E0A65000BB4A62 /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB7B2B4E28E0A65000BB4A62 /* AlertView.xib */; };
 		DB7B2B5128E0AD4600BB4A62 /* AlertViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7B2B5028E0AD4600BB4A62 /* AlertViewControl.swift */; };
 		DB84D9C028DE56DD00E288F4 /* ViewControllerRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB84D9BF28DE56DD00E288F4 /* ViewControllerRegister.swift */; };
+		DBB00DD12AAC96A60018D456 /* ViewControllerPostComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB00DD02AAC96A60018D456 /* ViewControllerPostComments.swift */; };
+		DBB00DD32AAC98B90018D456 /* TableViewCellPostwithComments1.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB00DD22AAC98B90018D456 /* TableViewCellPostwithComments1.swift */; };
+		DBB00DD52AAC9A030018D456 /* TableViewCellPostwithComments2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB00DD42AAC9A030018D456 /* TableViewCellPostwithComments2.swift */; };
 		DBC632CE28E2322A00875AD4 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBC632CD28E2322A00875AD4 /* LoadingView.xib */; };
 		DBC632D028E2350500875AD4 /* LoadingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC632CF28E2350500875AD4 /* LoadingControl.swift */; };
 		DBC7BD072902746F0000532C /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = DBC7BD062902746F0000532C /* SDWebImage */; };
@@ -92,6 +95,9 @@
 		DB7B2B4E28E0A65000BB4A62 /* AlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
 		DB7B2B5028E0AD4600BB4A62 /* AlertViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControl.swift; sourceTree = "<group>"; };
 		DB84D9BF28DE56DD00E288F4 /* ViewControllerRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegister.swift; sourceTree = "<group>"; };
+		DBB00DD02AAC96A60018D456 /* ViewControllerPostComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerPostComments.swift; sourceTree = "<group>"; };
+		DBB00DD22AAC98B90018D456 /* TableViewCellPostwithComments1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPostwithComments1.swift; sourceTree = "<group>"; };
+		DBB00DD42AAC9A030018D456 /* TableViewCellPostwithComments2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPostwithComments2.swift; sourceTree = "<group>"; };
 		DBC632CD28E2322A00875AD4 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		DBC632CF28E2350500875AD4 /* LoadingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingControl.swift; sourceTree = "<group>"; };
 		DBC7BD0A290320170000532C /* GetPersonFromFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPersonFromFirestore.swift; sourceTree = "<group>"; };
@@ -185,6 +191,9 @@
 				DB7ADD4029C3620200CC1B7A /* DatabaseManager.swift */,
 				DB75B4A329EB562F0002825B /* ViewControllerGlleryImage.swift */,
 				DB566C392AA8EC4A005E46CE /* UITableViewPostCell.swift */,
+				DBB00DD02AAC96A60018D456 /* ViewControllerPostComments.swift */,
+				DBB00DD22AAC98B90018D456 /* TableViewCellPostwithComments1.swift */,
+				DBB00DD42AAC9A030018D456 /* TableViewCellPostwithComments2.swift */,
 			);
 			path = "Software Development Community";
 			sourceTree = "<group>";
@@ -355,7 +364,9 @@
 				DB0702FD28E9B7A400F0BCAC /* ViewControllerUpdateInformation.swift in Sources */,
 				DBD7342D28F3399B00663123 /* ViewControllerGallery.swift in Sources */,
 				DBC7BD0B290320170000532C /* GetPersonFromFirestore.swift in Sources */,
+				DBB00DD12AAC96A60018D456 /* ViewControllerPostComments.swift in Sources */,
 				DBC632D028E2350500875AD4 /* LoadingControl.swift in Sources */,
+				DBB00DD52AAC9A030018D456 /* TableViewCellPostwithComments2.swift in Sources */,
 				DB22FA1428DDEA0E00A1AE47 /* ViewController.swift in Sources */,
 				DBD7342B28F3390B00663123 /* ViewControllerMembers.swift in Sources */,
 				DB5C69C02910818700F3D34B /* TabBarControler.swift in Sources */,
@@ -371,6 +382,7 @@
 				DB52777F29A7E47600FB8B14 /* GalleryCollectionViewCell.swift in Sources */,
 				DB75B4A429EB562F0002825B /* ViewControllerGlleryImage.swift in Sources */,
 				DB52777D29A7C88200FB8B14 /* ViewControllerLock.swift in Sources */,
+				DBB00DD32AAC98B90018D456 /* TableViewCellPostwithComments1.swift in Sources */,
 				DB7B2B5128E0AD4600BB4A62 /* AlertViewControl.swift in Sources */,
 				DB1EA4012936518400F3D2C1 /* MemberTableViewCell.swift in Sources */,
 				DB7ADD4129C3620200CC1B7A /* DatabaseManager.swift in Sources */,

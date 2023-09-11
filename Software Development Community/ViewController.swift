@@ -17,11 +17,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         designInitialize()
-        
-        
-        
-        
-        
+        setupInit()
     }
     override func viewWillAppear(_ animated: Bool) {
         
@@ -136,6 +132,14 @@ extension ViewController {
         passwordLabel.leftViewMode = .always
         //____________________________________________________________________________
     
+    }
+    
+    func setupInit(){
+        let touchSensor = UITapGestureRecognizer(target: self, action: #selector(self.touchTheFreeArea))
+        view.addGestureRecognizer(touchSensor)
+    }
+    @objc func touchTheFreeArea(){
+        view.endEditing(true)
     }
     func alert(title:String,message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

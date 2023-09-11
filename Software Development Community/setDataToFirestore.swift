@@ -25,6 +25,11 @@ class setDataToFirestore{
         self.document = document
     }
     
+    init(collection: String, data: [String : Any]) {
+        self.collection = collection
+        self.data = data
+    }
+    
     init(collection: String, data: [String : Any], document: String,storageChild:String) {
         self.collection = collection
         self.data = data
@@ -50,7 +55,7 @@ class setDataToFirestore{
         })
     }
     
-    func setPost(){
+    func setDocument(){
         firestoreDataBase.collection(collection!).addDocument(data: data!, completion:
         { error in
             if error != nil
@@ -85,7 +90,7 @@ class setDataToFirestore{
                             ImageDownloadUrl = url!.absoluteString
                             let publishData = ["\(urlName)":ImageDownloadUrl!,"firebaseDate":FieldValue.serverTimestamp()] as [String:Any]
                             self.data!.merge(publishData){(current, _) in current}
-                            self.setPost()
+                            self.setDocument()
                         }
                     }
                 }
