@@ -15,11 +15,17 @@ class ViewControllerPostComments: UIViewController {
     @IBOutlet weak var postAndCommentsTableView: UITableView!
     let FirestoreDatabase = Firestore.firestore()
     private var comments = [String]()
+    private var sortedComments = [String]()
     private var firebaseDates = [Timestamp]()
+    private var firebaseConvertedDates = [Date]()
     private var memberGenders = [String]()
+    private var sortedMemberGenders = [String]()
     private var memberNames = [String]()
+    private var sortedMemberNames = [String]()
     private var memberSurNames = [String]()
+    private var sortedMemberSurNames = [String]()
     private var memberPhotoUrls = [String]()
+    private var sortedMemberPhotoUrls = [String]()
     var post:[String : Any]?
     var currentUser = GetPerson()
     
@@ -52,10 +58,30 @@ class ViewControllerPostComments: UIViewController {
         commentField.layer.borderWidth = 1
         commentField.layer.borderColor = UIColor.blue.cgColor
     }
-    func commeDataCustomOrderByDate(){
-         
+    // there is this function because firebase filter and order doesn't work with them
+    func commentDataCustomOrderByDate(){
+        firebaseConvertedDates.sort()
+        var i  = 0
+        for date in firebaseDates{
+            let uploadDateTimestamp = date
+            let uploadDate = uploadDateTimestamp.dateValue()
+            let index = firebaseConvertedDates.firstIndex(of: uploadDate)
+            sortedComments[index!] = comments[i]
+            sortedMemberNames[index!] = memberNames[i]
+            sortedMemberSurNames[index!] = memberSurNames[i]
+            sortedMemberGenders[index!] = memberGenders[i]
+            sortedMemberPhotoUrls[index!] = memberPhotoUrls[i]
+            i+=1
+        }
+        
     }
-    
+    func convertTimestampToDate(){
+        for date in firebaseDates{
+            let uploadDateTimestamp = date
+            let uploadDate = uploadDateTimestamp.dateValue()
+            firebaseConvertedDates.append(uploadDate)
+        }
+    }
     func getCommentDataFromFirestore()
     {
         if let postId = post?["postId"] as? String{
@@ -75,11 +101,17 @@ class ViewControllerPostComments: UIViewController {
                     {
                         //remove arraye for do not be loop the feed
                         self.comments.removeAll(keepingCapacity: false)
+                        self.sortedComments.removeAll(keepingCapacity: false)
+                        self.firebaseConvertedDates.removeAll(keepingCapacity: false)
                         self.firebaseDates.removeAll(keepingCapacity: false)
                         self.memberGenders.removeAll(keepingCapacity: false)
+                        self.sortedMemberGenders.removeAll(keepingCapacity: false)
                         self.memberPhotoUrls.removeAll(keepingCapacity: false)
+                        self.sortedMemberPhotoUrls.removeAll(keepingCapacity: false)
                         self.memberNames.removeAll(keepingCapacity: false)
+                        self.sortedMemberNames.removeAll(keepingCapacity: false)
                         self.memberSurNames.removeAll(keepingCapacity: false)
+                        self.sortedMemberSurNames.removeAll(keepingCapacity: false)
                         
                         for document in snapshot!.documents
                         {
@@ -109,8 +141,14 @@ class ViewControllerPostComments: UIViewController {
                                 self.memberSurNames.append(SurName)
                             }
                         }
-                        print(self.comments.count)
-                        print(self.firebaseDates.count)
+                        let count = self.firebaseDates.count
+                        self.sortedComments = Array(repeating: "", count: count)
+                        self.sortedMemberNames = Array(repeating: "", count: count)
+                        self.sortedMemberSurNames = Array(repeating: "", count: count)
+                        self.sortedMemberGenders = Array(repeating: "", count: count)
+                        self.sortedMemberPhotoUrls = Array(repeating: "", count: count)
+                        self.convertTimestampToDate()
+                        self.commentDataCustomOrderByDate()
                         self.postAndCommentsTableView.reloadData()
                     }
                 }
@@ -156,16 +194,14 @@ extension ViewControllerPostComments: UITableViewDelegate,UITableViewDataSource{
         }
         else{
             let cell2 = postAndCommentsTableView.dequeueReusableCell(withIdentifier: "commentCell") as! TableViewCellPostwithComments2
-            let uploadDateTimestamp = firebaseDates[indexPath.row]
-            let uploadDate = uploadDateTimestamp.dateValue()
-            cell2.dayCounterLabel.text = dateDiff(frontDate: uploadDate, now: Date())
-            cell2.rootNameLabel.text = "\(memberNames[indexPath.row]) \(memberSurNames[indexPath.row])"
-            cell2.rootCommentLabel.text = comments[indexPath.row]
-            if memberGenders[indexPath.row] == "0"{
-                cell2.rootImageView.sd_setImage(with: URL(string: memberPhotoUrls[indexPath.row]), placeholderImage: UIImage(named: "genderphmen"))
+            cell2.dayCounterLabel.text = dateDiff(frontDate: firebaseConvertedDates[indexPath.row], now: Date())
+            cell2.rootNameLabel.text = "\(sortedMemberNames[indexPath.row]) \(sortedMemberSurNames[indexPath.row])"
+            cell2.rootCommentLabel.text = sortedComments[indexPath.row]
+            if sortedMemberGenders[indexPath.row] == "0"{
+                cell2.rootImageView.sd_setImage(with: URL(string: sortedMemberPhotoUrls[indexPath.row]), placeholderImage: UIImage(named: "genderphmen"))
             }
             else{
-                cell2.rootImageView.sd_setImage(with: URL(string: memberPhotoUrls[indexPath.row]), placeholderImage: UIImage(named: "genderphwomen"))
+                cell2.rootImageView.sd_setImage(with: URL(string: sortedMemberPhotoUrls[indexPath.row]), placeholderImage: UIImage(named: "genderphwomen"))
             }
             return cell2
         }
@@ -212,6 +248,7 @@ extension ViewControllerPostComments{
     }
     @objc func touchTheFreeArea(){
         view.endEditing(true)
+        
     }
     
     @objc private func keyboardWillShow(notification:NSNotification){
