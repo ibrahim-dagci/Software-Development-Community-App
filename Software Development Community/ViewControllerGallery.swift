@@ -147,10 +147,7 @@ extension ViewControllerGallery:UICollectionViewDelegate,UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryCell", for: indexPath) as! GalleryCollectionViewCell
-        cell.cellImageView.contentMode = .scaleAspectFill
         cell.cellImageView.sd_setImage(with: URL(string: galleryPhotoUrls[indexPath.row]), placeholderImage: UIImage(named: "galleryPlaceholderImage"))
-        cell.layer.borderColor = UIColor.lightGray.cgColor
-        cell.layer.borderWidth = 0.5
         galleryPhotos.append(cell.cellImageView)
         return cell
     }

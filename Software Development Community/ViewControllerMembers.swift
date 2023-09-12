@@ -121,12 +121,6 @@ extension ViewControllerMembers: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       // cell data init
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberTableViewCell
-        cell.memberImageView.layer.cornerRadius = 40
-        cell.memberImageView.layer.borderColor = UIColor.black.cgColor
-        cell.memberImageView.layer.borderWidth = 2
-        cell.containerView.layer.cornerRadius = 12
-        cell.containerView.layer.borderColor = UIColor.gray.cgColor
-        cell.containerView.layer.borderWidth = 1
         
         if currenSearching == false{
             cell.memberNameLabel.text = "\(memberNameArray[indexPath.row]) \(memberSurnameArray[indexPath.row])"

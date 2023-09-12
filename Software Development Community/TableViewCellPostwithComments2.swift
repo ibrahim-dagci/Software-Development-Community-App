@@ -16,6 +16,9 @@ class TableViewCellPostwithComments2: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        rootImageView.layer.cornerRadius = 45/2
+        rootImageView.layer.borderWidth = 1
+        rootImageView.layer.borderColor = UIColor.black.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

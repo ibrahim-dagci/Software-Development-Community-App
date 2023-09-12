@@ -22,6 +22,12 @@ class MemberTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        memberImageView.layer.cornerRadius = 40
+        memberImageView.layer.borderColor = UIColor.black.cgColor
+        memberImageView.layer.borderWidth = 2
+        containerView.layer.cornerRadius = 12
+        containerView.layer.borderColor = UIColor.gray.cgColor
+        containerView.layer.borderWidth = 1
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
